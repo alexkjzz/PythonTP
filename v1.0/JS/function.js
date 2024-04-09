@@ -1,28 +1,18 @@
+const { exec } = require('child_process');
 
-var jsdata = JSON.parse('{{ json_data | safe }}');
-console.log(jsdata)
+// Chemin vers le script Python
+const cheminScriptPython = 'v1.0/PYTHON/function.py';
 
+// Exécuter le script Python
+exec(`python ${cheminScriptPython}`, (err, stdout, stderr) => {
+    if (err) {
+        console.error('Erreur lors de l\'exécution du script Python:', err);
+        return;
+    }
 
+    // Utiliser directement la sortie JSON sans la parser
+    const filmsData = stdout;
 
-function creerListeFilms(){
-
-    const listeFilms = document.getElementById("liste-films");
-
-    films.forEach(film =>{
-        const carteFilm = document.createElement("div");
-        carteFilm.classList.add("carte-film")
-        carteFilm.id = "film-"+ film.id;
-
-        const title = document.createElement("h2");
-        title.textContent = film.title;
-
-        const statistique = document.createElement("p");
-        statistique.textContent = film.statistique;
-
-        carteFilm.appendChild(title);
-        carteFilm.appendChild(statistique);
-        listeFilms.appendChild(carteFilm);
-    })
-}
-
-window.onload = creerListeFilms;
+    // Afficher les informations des films dans la console
+    console.log(filmsData);
+});
