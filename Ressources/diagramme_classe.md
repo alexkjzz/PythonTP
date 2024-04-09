@@ -7,7 +7,6 @@ classDiagram
         -email
         -nom : string
         -prenom : string
-        -rôle : UtilisateurClassique/Administrateur 
         +seConnecter(): void
 
     }
@@ -16,34 +15,29 @@ classDiagram
     class Utilisateur Classique{
         
         - liste favoris
-        - Rôle : Utilisateur Classique
+        +ConsulterFilm(film)
+        +ConsulterFavoris(liste favoris)
         +ajouterFilm(film: Film): void
         +supprimerFilm(film: Film): void
     }
 
     class Administrateur {
-        - Rôle : Administrateur
-        +getFilmsFavoris(): List<Film>
-    }
-
-    class Film {
-        liste :
-        -numero_episode: int
-        -titre: String
-        -release_date: Date
-       
+        +ShowStat(): List<Film>
     }
 
     class Favoris {
-        -films: List<Film>
-        
+        -films: List
+        +ConsulteDetailsFilms()
+       
     }
+
+   
 
     Utilisateur <-- Utilisateur Classique
     Utilisateur <-- Administrateur 
-    Utilisateur  Classique-->  Film : consulte et ajoute
-    Administrateur   -->  Film : consulte stats
-    Favoris  -->  Film : contient
+    Utilisateur  Classique-->  Favoris : consulte et ajoute
+    Administrateur   -->  Favoris : consulte stats
+    
     
 
 
