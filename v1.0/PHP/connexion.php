@@ -27,10 +27,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["userNom"] = $user['Nom'];
             $_SESSION["userPrenom"] = $user['Prenom'];
             $_SESSION["userEmail"] = $user['Email'];
-            $_SESSION["role"] = $user['Role'];
+            $_SESSION["role"] = $user['ID_role'];
 
             // Rediriger l'utilisateur vers la page de réservation
-            header("Location: ../HTML/user.php");
+            if ($_SESSION["role"]==0){
+                header("Location: ../HTML/user.php");
+            } else {
+                header("Location: ../HTML/movie_dictionary.html");
+            }
+            
             exit();
         } else {
             // Mot de passe incorrect, afficher un message d'erreur
