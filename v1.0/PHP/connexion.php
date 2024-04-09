@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["role"] = $user['Role'];
 
             // Rediriger l'utilisateur vers la page de réservation
-            header("Location: ../HTML/user.html");
+            header("Location: ../HTML/user.php");
             exit();
         } else {
             // Mot de passe incorrect, afficher un message d'erreur

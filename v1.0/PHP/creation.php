@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($stmt_insert->execute()) {
                 // Compte créé avec succès
                 echo "Compte créé avec succès !";
-                header("refresh:5;url=../HTML/user.html");
+                header("refresh:5;url=../HTML/user.php");
             } else {
                 // Erreur lors de l'insertion dans la base de données
                 echo "Erreur lors de la création du compte : " . $stmt_insert->error;
