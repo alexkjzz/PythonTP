@@ -13,6 +13,7 @@
 <body>
     <section id="liste-films" class="cartes-films">
     </section>
-    <script src="../JS/function.js"></script>
+    <script src="../JS/function.js">
+    </script>
 </body>
 </html>
