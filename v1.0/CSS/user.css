@@ -1,69 +1,71 @@
-#liste-films {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center; /* Centrer horizontalement */
-    gap: 10px;
-}
-
-.carte-film {
-    font-family: "OCR A Std", monospace;
-    margin: 10px;
-    color: #e3e3e3; /* Couleur du texte */
-    background-color: #333; /* Couleur de fond de la carte */
-    transition: box-shadow 0.4s, background-color 0.4s , color 0.6s; /* Transition fluide */
-    border-radius: 5px; /* Arrondi léger des bords */
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.1); /* Ombre par défaut */
-    position: relative;
-    width: 200px; /* Largeur fixe des cartes */
-    height: 300px; /* Hauteur fixe des cartes */
-    border: 1px solid #ccc;
-    overflow: hidden; /* Pour gérer le contenu qui dépasse */
-    display: inline-block; /* Pour que les cartes s'affichent côte à côte */
-}
-
-.carte-film:hover {
-    background-color: #cd9e6c; /* Changement de couleur au survol */
-    color: black;
-    box-shadow: 0 0 20px rgb(202, 165, 70), 0 0 40px rgba(255, 147, 24, 0.5); /* Ombre plus prononcée au survol avec une teinte orange et décalage */
-}
-
-/* Centrer le contenu à l'intérieur de la carte */
-.carte-film > * {
-    text-align: center;
-}
-
+/* Styles communs */
 body {
-    background-color: #222; /* Couleur de fond du corps */
+    background-color: #222;
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center; /* Centrer horizontalement */
-    align-items: center; /* Centrer verticalement */
+    flex-direction: column;
+    align-items: center;
     min-height: 100vh;
+    overflow: hidden; /* Empêche le défilement de la page */
 }
 
 header {
     font-size: 40px;
     color: #e3e3e3;
-    font-family: "OCR A Std", monospace; /* Ajout de la police de caractères */
-    position: absolute;
-    top: 20px; /* Distance du haut de la page */
-    left: 20px; /* Distance de la gauche de la page */
+    font-family: "OCR A Std", monospace;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+#liste-films {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+    overflow: auto; /* Ajoute une barre de défilement si nécessaire */
 }
 
 .carte-film {
-    position: relative; /* Position relative for absolute positioning of heart icon */
-    cursor: pointer; /* Add cursor:pointer to indicate it's clickable */
+    position: relative; /* Ajout de position relative */
+    font-family: "OCR A Std", monospace;
+    margin: 10px;
+    color: #e3e3e3;
+    background-color: #333;
+    transition: box-shadow 0.4s, background-color 0.4s, color 0.6s;
+    border-radius: 5px;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    height: 300px;
+    border: 1px solid #ccc;
+    overflow: hidden;
+    display: inline-block;
+    cursor: pointer;
 }
 
+
+.carte-film:hover {
+    background-color: #cd9e6c;
+    color: black;
+    box-shadow: 0 0 20px rgb(202, 165, 70), 0 0 40px rgba(255, 147, 24, 0.5);
+}
+
+.carte-film > * {
+    text-align: center;
+    margin: 10px;
+}
+
+
+/* Styles spécifiques à la classe .favorited */
 .favorited::before {
     content: '\2764'; /* Heart icon */
     position: absolute;
-    top: 10px;
+    bottom: 10px;
     right: 10px;
     font-size: 24px;
     color: pink;
-    animation: glowing-heart 1s ease-in-out infinite alternate; /* Glowing animation */
+    animation: glowing-heart 1s ease-in-out infinite alternate; /* Animation */
 }
 
 @keyframes glowing-heart {
@@ -74,3 +76,5 @@ header {
         text-shadow: 0 0 10px #ff4d88, 0 0 15px #ff4d88, 0 0 20px #ff4d88;
     }
 }
+
+
