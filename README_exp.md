@@ -1,44 +1,48 @@
-# Starwars Film
-Projet transversale Python 
-SN1 EPSI Lille
+# StarFilm
+A Star Wars Movie Selector for "projet transversal sn1 python" at EPSI Lille
 
-## Technologies et outils:
+## Technology and Tools:
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)
 
-- [GitHub](https://github.com/alexkjzz/PythonTP)
+
+- [GitHub](https://github.com/DCodeProg/StarFilm)
 - [Python 3.12](https://docs.python.org/3.12/)
 - [Swapi](https://swapi.dev/)
 - [SQLite](https://swapi.dev/)
 - [SqlAlchemy](https://www.sqlalchemy.org/)
 
-## Préparation
-### 1- Convention de nommages : 
+## Preps
+### 1. Naming conventions
 ```py
-# snake_case
-my_variable
-
-# snake_case
-def get_user_data():
-
 # CamelCase
 class MyClass():
+    ...
+
+# snake_case
+def my_function(x: int = 0) -> None:
+    ...
+
+# snake_case
+my_var: str = ""
+
+# UPPER_CASE
+MY_CONSTANT: float = 3.14
 ```
 
-### 2- Version
-
+### 2. Versionning
 ```
-Changement de version
-X.0.0 Nouveautée majeur
-0.X.0 petite nouveautée 
-0.0.X Nouveautée minime
+Version number change 
+X.0.0 When new major version
+0.X.0 When new little feature
+0.0.X When new minor change
 ```
 
 ### 3. Documentation
 ```py
-# Docstring 
-def my_function():
+# Docstring format: Google
+def my_function(x: int = 0) -> None:
     """_summary_
 
     Args:
@@ -48,69 +52,20 @@ def my_function():
 
 ### 4. Communication
 - Discord
-- [Trello](https://trello.com/)
-- [WikiGithub](https://github.com/alexkjzz/PythonTP)
+- [Trello]()
 
-
-### 5. Stratégie de développement
+### 5. Dev strategies
+- Merge review
+- Code review
 - Peer programming
-- Management avec Trello
-- Revue de code
+- Project management with Trello
 
-
-### Choix des librairies et veilles technologiques avec POC 
-
-![Texte alternatif](/IMAGES/POC.png "Titre de l'image")
-
-### Diagramme de classes
-```mermaid
-classDiagram
-  
-    class Utilisateur{
-        -nom_utilisateur: String
-        -mot_de_passe: String
-        -email
-        -nom : string
-        -prenom : string
-        +seConnecter(): void
-
-    }
-
-
-    class Utilisateur Classique{
-        
-        - liste favoris
-        +ConsulterFilm(film)
-        +ConsulterFavoris(liste favoris)
-        +ajouterFilm(film: Film): void
-        +supprimerFilm(film: Film): void
-    }
-
-    class Administrateur {
-        +ShowStat(): List<Film>
-    }
-
-    class Favoris {
-        -films: List
-        +ConsulteDetailsFilms()
-       
-    }
-
-   
-
-    Utilisateur <-- Utilisateur Classique
-    Utilisateur <-- Administrateur 
-    Utilisateur  Classique-->  Favoris : consulte et ajoute
-    Administrateur   -->  Favoris : consulte stats
-    
-    
-
-
-
-```
+### 6. Libs
+- 
+- 
 
 ## User stories
-### Feature: Ajouter un film en favoris
+### Feature: Add favorite movies
 
 #### En tant que client je souhaite enregistrer un des films de starwars en tant que favoris afin de le retrouver facilement plus tard
 - Il faut pouvoir consulter la liste des films *(numéro d'épisode, titre, release_date)*
