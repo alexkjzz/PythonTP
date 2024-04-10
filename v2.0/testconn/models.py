@@ -1,9 +1,9 @@
 from flask_login import UserMixin
 from sqlalchemy import Column, Integer, String
 from werkzeug.security import generate_password_hash, check_password_hash
-from app import db  # Assuming 'app' is your Flask app instance
+from db import db  # Importez votre objet de base de données depuis le module approprié
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True, nullable=False)

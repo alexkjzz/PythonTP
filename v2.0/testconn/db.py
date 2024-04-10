@@ -4,10 +4,11 @@ from flask_sqlalchemy import SQLAlchemy
 
 # Configuration de la base de données
 DB_CONFIG = {
-    'HOST': 'your_database_host',
-    'USER': 'your_database_user',
-    'PASSWORD': 'your_database_password',
-    'DB_NAME': 'your_database_name'
+    'HOST': 'mysql-serveurlucien.alwaysdata.net',
+    'USER': '340488',
+    'PASSWORD': 'racinepython2024',
+    'DB_NAME': 'serveurlucien_pythonbdd',
+
 }
 
 # Initialisation de l'extension SQLAlchemy
