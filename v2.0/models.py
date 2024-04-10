@@ -1,9 +1,7 @@
 from flask_login import UserMixin
 from sqlalchemy import Column, Integer, String
-from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-
-db = SQLAlchemy()
+from app import db  # Assuming 'app' is your Flask app instance
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -17,3 +15,6 @@ class User(db.Model, UserMixin):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+    def __repr__(self):
+        return f'<User {self.username}>'

@@ -1,20 +1,23 @@
 from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_login import LoginManager, login_user, logout_user, login_required, UserMixin, current_user
+from flask_sqlalchemy import SQLAlchemy
 from models import db, User
 from forms import RegistrationForm, LoginForm
 
+#APP CONFIG
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key_here'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-
-db.init_app(app)
+#INIT DB
+db = SQLAlchemy(app)
+#LOGIN SETUP
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
-
+#USER LOADER
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
-
+#ROUTES
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -39,7 +42,7 @@ def login():
         if user and user.check_password(form.password.data):
             login_user(user)
             next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('dashboard'))
+            return redirect(next_page or url_for('dashboard'))
         else:
             flash('Invalid username or password. Please try again.', 'danger')
     return render_template('login.html', form=form)
@@ -54,6 +57,6 @@ def logout():
 @login_required
 def dashboard():
     return render_template('dashboard.html')
-
+#RUN
 if __name__ == '__main__':
     app.run(debug=True)
