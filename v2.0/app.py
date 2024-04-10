@@ -23,7 +23,7 @@ def fetch_films():
 @app.route("/")
 def index():
     films = fetch_films()
-    return render_template("index.html", films=films)
+    return render_template("index.php", films=films)
 
 @app.route("/film_list")
 def film_list():
