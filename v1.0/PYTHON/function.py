@@ -1,6 +1,5 @@
 
 import requests
-
 def fetch_films():
     response = requests.get('https://swapi.dev/api/films/')
     if response.status_code == 200:
