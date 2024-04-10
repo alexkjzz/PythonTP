@@ -1,80 +1,144 @@
-# <span style="color: orange"> PythonTP </span>
+# Starwars Film
+Projet transversale Python 
+SN1 EPSI Lille
 
-![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+## Technologies et outils:
+![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)
 
-### <span style="color: orange"> Préparation </span>
+- [GitHub](https://github.com/alexkjzz/PythonTP)
+- [Python 3.12](https://docs.python.org/3.12/)
+- [Swapi](https://swapi.dev/)
+- [SQLite](https://swapi.dev/)
+- [SqlAlchemy](https://www.sqlalchemy.org/)
 
-En vous concertant au sein de votre équipe, vous devrez définir et formuler :<br>
+## Préparation
+### 1- Convention de nommages : 
+```py
+# snake_case
+my_variable
 
-* Des conventions de nommages (variables, fonctions, classes, fichiers …) <br>
+# snake_case
+def get_user_data():
 
-* Comment gérer les versions de votre code ? quelles règles de nommages, quand passez à une version suivante … <br>
+# CamelCase
+class MyClass():
+```
 
-* Comment documenterez vous votre code et votre projet ? <br>
+### 2- Version
 
-* Quels outils votre équipe utilisera-elle pour communiquer et s’organiser ?  <br>
+```
+Changement de version
+X.0.0 Nouveautée majeur
+0.X.0 petite nouveautée 
+0.0.X Nouveautée minime
+```
 
-* Stratégie de développement pour les reviews de code ? <br>
+### 3. Documentation
+```py
+# Docstring 
+def my_function():
+    """_summary_
 
-* peer programming ? <br>
+    Args:
+        x (int, optional): _description_. Defaults to 0.
+    """
+```
 
-* Choix des librairies et veilles technologiques avec POC <br>
-
-
-<br>
-
- #### <span style="color: orange"> Convention de nommages : </span>
-
-
-* Les variables sont nommées en minuscules, séparées par des underscores. Par exemple : my_variable.
-
-* Les fonctions sont nommées en camelCase. Par exemple : getUserData().
-
-* Les classes sont nommées en commencant par une majuscule. Par exemple : Utilisateur().
-
-* Les dossiers sont nommées en majuscules. Par exemple : HTML/
-
-* Les fichiers sont nommées en minuscules, séparées par des underscores. Par exemple : HTML/style_index.css
-
-
-<br>
-
- #### <span style="color: orange"> Comment gérer les versions de votre code ? </span>
-
-
-* Les versions de notre code seront gérer via une arboréssance de fichiers. Par exemple : V1.0/
-* Via les branches git
-
-
-<br>
-
- #### <span style="color: orange"> Comment documenterez vous votre code et votre projet ? </span>
-
-* Document type drive pour le partage d'infos importantes 
-
-<br>
-
- #### <span style="color: orange">Quels outils votre équipe utilisera-elle pour communiquer et s’organiser ? </span>
+### 4. Communication
+- Discord
+- [Trello](https://trello.com/)
+- [WikiGithub](https://github.com/alexkjzz/PythonTP)
 
 
-* Discord 
-* Trello  (https://trello.com/)
-* Wiki Github (https://github.com/alexkjzz/PythonTP)
+### 5. Stratégie de développement
+- Peer programming
+- Management avec Trello
+- Revue de code
 
-<br>
 
- #### <span style="color: orange"> Stratégie de développement pour les reviews de code ? </span>
-
-* 
-
-<br>
-
- #### <span style="color: orange"> peer programming ? </span>
-
-* oui, utile pour débloquer les problèmes... mais attention à ne pas être trop critiques !
-
-<br>
-
- #### <span style="color: orange"> Choix des librairies et veilles technologiques avec POC </span>
+### Choix des librairies et veilles technologiques avec POC 
 
 ![Texte alternatif](/IMAGES/POC.png "Titre de l'image")
+
+### Diagramme de classes
+```mermaid
+classDiagram
+  
+    class Utilisateur{
+        -nom_utilisateur: String
+        -mot_de_passe: String
+        -email
+        -nom : string
+        -prenom : string
+        +seConnecter(): void
+
+    }
+
+
+    class Utilisateur Classique{
+        
+        - liste favoris
+        +ConsulterFilm(film)
+        +ConsulterFavoris(liste favoris)
+        +ajouterFilm(film: Film): void
+        +supprimerFilm(film: Film): void
+    }
+
+    class Administrateur {
+        +ShowStat(): List<Film>
+    }
+
+    class Favoris {
+        -films: List
+        +ConsulteDetailsFilms()
+       
+    }
+
+   
+
+    Utilisateur <-- Utilisateur Classique
+    Utilisateur <-- Administrateur 
+    Utilisateur  Classique-->  Favoris : consulte et ajoute
+    Administrateur   -->  Favoris : consulte stats
+    
+    
+
+
+
+```
+
+## User stories
+### Feature: Ajouter un film en favoris
+
+#### En tant que client je souhaite enregistrer un des films de starwars en tant que favoris afin de le retrouver facilement plus tard
+- Il faut pouvoir consulter la liste des films *(numéro d'épisode, titre, release_date)*
+- En choisir un pour l'ajouter aux favoris
+- Une confirmation doit être faite à l'utilisateur pour lui confirmer l'ajout en favoris
+
+#### En tant que client je souhaite consulter ma liste de films favoris afin de retrouver rapidement mes films sauvegardés
+- On affiche les mêmes infos que pour la liste des films mais uniquement les films favoris
+- L'utilisateur doit accéder à ses favoris par une interface dédiés
+
+#### En tant que client je souhaite supprimer un film de ma liste afin de gérer efficacement les films que j'ai sauvegardés
+- La suppression se fait depuis la liste des films favoris
+- L'utilisateur sélectionne un film pour l'effacer
+- Il faut demander confirmation à l'utilisateur avant l'effacement
+- Il faut confirmer l'effacement à l'utilisateur
+
+
+----------
+### Feature: Connexion 
+#### En tant que client je souhaite me connecter afin que l'application se souvienne de moi à l'avenir.
+- Connexion pour nom d'utilisateur et mot de passe
+- Les favoris sont enregistrés pour un utilisateur spécifique
+
+#### En tant qu'administrateur je souhaite pouvoir me connecter afin de gérer et consulter des statistiques de l'application
+- L'administrateur est un rôle spécial qui peut consulter des statistiques inaccessible aux autres utilisateurs
+
+----------
+### Feature: Stats
+#### En tant qu'administrateur je souhaite consulter le nombre d'utilisateurs ayant ajoutés en favoris les films star wars
+- Se matérialise par une liste de films ainsi que le nombre d'ajout en favoris
+- Les films sont triés du plus favoris au moins.
