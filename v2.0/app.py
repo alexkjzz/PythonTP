@@ -4,10 +4,12 @@ from flask_sqlalchemy import SQLAlchemy
 from models import db, User
 from forms import RegistrationForm, LoginForm
 
-#APP CONFIG
 app = Flask(__name__)
+#APP CONFIG
+db_path = "v2.0"
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{db_path}'
+#KEY
 app.config['SECRET_KEY'] = 'your_secret_key_here'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 #INIT DB
 db = SQLAlchemy(app)
 #LOGIN SETUP
