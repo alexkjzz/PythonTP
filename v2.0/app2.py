@@ -5,10 +5,10 @@ from flask_login import LoginManager, login_user, logout_user, login_required, U
 from db import db, init_app
 from models import User
 from forms import RegistrationForm, LoginForm
-
+import requests
 app = Flask(__name__)
 # Configuration secrète
-app.config['SECRET_KEY'] = 'your_secret_key_here'
+app.config['SECRET_KEY'] = '08c12c9a83b5bc7e0ecf54b3d28dc1fc'
 
 # Initialisation de la base de données
 init_app(app)
@@ -26,30 +26,42 @@ def load_user(user_id):
 def index():
     return render_template('index.html')
 
+from sqlalchemy.exc import SQLAlchemyError
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        new_user = User(username=form.username.data)
-        new_user.set_password(form.password.data)
-        db.session.add(new_user)
-        db.session.commit()
-        flash('Account created successfully! Please log in.', 'success')
-        return redirect(url_for('login'))
+        try:
+            new_user = User(Nom=form.Nom.data, Email=form.Email.data, Prenom=form.Prenom.data, MDP=form.MDP.data, ID_role=0)
+            new_user.set_password(form.MDP.data)
+            db.session.add(new_user)
+            db.session.commit()
+            flash('Account created successfully! Please log in.', 'success')
+            return redirect(url_for('login'))
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Error creating account: {str(e)}', 'danger')
+            print(f'Error creating account: {str(e)}')  # Ajoutez cette ligne pour afficher l'erreur dans la console
+    else:
+        print('Form is not valid')  # Ajoutez cette ligne pour déboguer si le formulaire n'est pas valide
+    
     return render_template('register.html', form=form)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
-        if user and user.check_password(form.password.data):
+        user = User.query.filter_by(Nom=form.Nom.data).first()
+        if user and user.check_password(form.MDP.data):
             login_user(user)
             next_page = request.args.get('next')
             return redirect(next_page or url_for('dashboard'))
         else:
             flash('Invalid username or password. Please try again.', 'danger')
     return render_template('login.html', form=form)
+
 
 @app.route('/logout')
 @login_required
@@ -61,6 +73,8 @@ def logout():
 @login_required
 def dashboard():
     return render_template('dashboard.html')
+
+
 
 # Exécution de l'application
 if __name__ == '__main__':

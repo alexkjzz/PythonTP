@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <title>Register</title>
 </head>
@@ -14,9 +14,73 @@
     {% endwith %}
     <form method="post">
         {{ form.hidden_tag() }}
-        {{ form.username.label }} {{ form.username(size=20) }}<br>
-        {{ form.password.label }} {{ form.password(size=20) }}<br>
-        {{ form.confirm_password.label }} {{ form.confirm_password(size=20) }}<br>
+
+        <!-- Champ Nom -->
+        <div>
+            {{ form.Nom.label }}
+            {{ form.Nom(size=20) }}
+            {% if form.Nom.errors %}
+                <ul>
+                    {% for error in form.Nom.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+        <!-- Champ Email -->
+        <div>
+            {{ form.Email.label }}
+            {{ form.Email(size=20) }}
+            {% if form.Email.errors %}
+                <ul>
+                    {% for error in form.Email.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+        <!-- Champ Prenom -->
+        <div>
+            {{ form.Prenom.label }}
+            {{ form.Prenom(size=20) }}
+            {% if form.Prenom.errors %}
+                <ul>
+                    {% for error in form.Prenom.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+        <!-- Champ Mot de passe -->
+        <div>
+            {{ form.MDP.label }}
+            {{ form.MDP(size=20) }}
+            {% if form.MDP.errors %}
+                <ul>
+                    {% for error in form.MDP.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+        <!-- Champ Confirmation du mot de passe -->
+        <div>
+            {{ form.confirm_password.label }}
+            {{ form.confirm_password(size=20) }}
+            {% if form.confirm_password.errors %}
+                <ul>
+                    {% for error in form.confirm_password.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+        <!-- Bouton de soumission -->
         {{ form.submit() }}
     </form>
 </body>

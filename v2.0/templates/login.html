@@ -14,9 +14,12 @@
     {% endwith %}
     <form method="post">
         {{ form.hidden_tag() }}
-        {{ form.username.label }} {{ form.username(size=20) }}<br>
-        {{ form.password.label }} {{ form.password(size=20) }}<br>
+        {{ form.Nom.label }} {{ form.Nom(size=20) }}<br>
+        {{ form.Email.label }} {{ form.Email(size=20) }}<br>
+        {{ form.Prenom.label }} {{ form.Prenom(size=20) }}<br>
+        {{ form.MDP.label }} {{ form.MDP(size=20) }}<br>
         {{ form.submit() }}
     </form>
+    
 </body>
 </html>
