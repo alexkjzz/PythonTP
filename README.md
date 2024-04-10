@@ -142,3 +142,25 @@ classDiagram
 #### En tant qu'administrateur je souhaite consulter le nombre d'utilisateurs ayant ajoutés en favoris les films star wars
 - Se matérialise par une liste de films ainsi que le nombre d'ajout en favoris
 - Les films sont triés du plus favoris au moins.
+
+
+
+# Installation Instructions
+
+1. Clonez ce repository dans votre répertoire local.
+2. Ouvrez le powershell et executé ces commandes :
+
+```bash
+pip install Flask Flask-Login 
+```
+```bash
+pip install SQLAlchemy
+```
+```bash
+pip install Flask-SQLAlchemy
+```
+```bash
+pip install Flask-WTF
+```
+
+3. Lancer le fichier app.py
