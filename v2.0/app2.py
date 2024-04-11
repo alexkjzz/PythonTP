@@ -3,8 +3,9 @@
 from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_login import LoginManager, login_user, logout_user, login_required, UserMixin, current_user
 from db import db, init_app
-from models import User
+from models import User , Favori
 from forms import RegistrationForm, LoginForm
+import requests
 
 app = Flask(__name__)
 # Configuration secrète
@@ -33,7 +34,7 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         try:
-            new_user = User(username=form.username.data, email=form.email.data, password=form.password.data, role_id=0)
+            new_user = User(username=form.username.data, email=form.email.data, password=form.password.data, role=0)
             new_user.set_password(form.password.data)
             db.session.add(new_user)
             db.session.commit()
@@ -74,6 +75,48 @@ def logout():
 def dashboard():
     return render_template('dashboard.html')
 
+
+
+
+# Fonction pour récupérer les films depuis SWAPI
+def fetch_star_wars_films():
+    url = "https://swapi.dev/api/films/"
+    try:
+        response = requests.get(url)
+        response.raise_for_status()  # Lève une exception en cas d'erreur HTTP
+
+        film_data = response.json()['results']
+        films = []
+
+        for film in film_data:
+            film_info = {
+                'title': film['title'],
+                'episode_id': film['episode_id'],
+                'director': film['director'],
+                'release_date': film['release_date']
+                # Vous pouvez ajouter d'autres champs ici si nécessaire
+            }
+            films.append(film_info)
+
+        return films
+
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching films from SWAPI: {str(e)}")
+        return []
+
+
+@app.route('/add_favorite', methods=['POST'])
+@login_required
+def add_favorite():
+    film_title = request.form['film_title']
+    episode_id = request.form['episode_id']
+
+    favori = Favori(user_id=current_user.id, film_title=film_title, episode_id=episode_id)
+    db.session.add(favori)
+    db.session.commit()
+
+    flash(f'{film_title} added to favorites!', 'success')
+    return redirect(url_for('dashboard'))
 
 
 # Exécution de l'application

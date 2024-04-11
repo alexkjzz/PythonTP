@@ -1,10 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
 </head>
 <body>
-    <h1>Welcome to the Dashboard</h1>
-    <p>You are logged in as {{ current_user.Nom }} | <a href="{{ url_for('logout') }}">Logout</a></p>
+    <h1>Welcome, {{ current_user.username }}!</h1>
+
+    <h2>Favorite Films</h2>
+    <ul>
+        {% for favori in current_user.favoris %}
+            <li>{{ favori.film_title }} (Episode {{ favori.episode_id }})</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Explore Films</h2>
+    <ul>
+        {% for film in films %}
+            <li>{{ film.title }} (Episode {{ film.episode_id }}) 
+                <form action="{{ url_for('add_favorite') }}" method="post">
+                    <input type="hidden" name="film_title" value="{{ film.title }}">
+                    <input type="hidden" name="episode_id" value="{{ film.episode_id }}">
+                    <button type="submit">Add to Favorites</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
 </body>
 </html>

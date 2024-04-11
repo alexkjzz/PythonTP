@@ -27,3 +27,15 @@ class User(db.Model, UserMixin):
 
     def get_id(self):
         return str(self.user_id)
+
+
+class Favori(db.Model):
+    __tablename__ = 'favoris'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    film_title = db.Column(db.String(255), nullable=False)
+    episode_id = db.Column(db.Integer, nullable=False)
+
+    def __repr__(self):
+        return f"<Favori {self.film_title}>"

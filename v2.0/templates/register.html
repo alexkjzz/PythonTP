@@ -17,11 +17,11 @@
 
         <!-- Champ Nom -->
         <div>
-            {{ form.Nom.label }}
-            {{ form.Nom(size=20) }}
-            {% if form.Nom.errors %}
+            {{ form.username.label }}
+            {{ form.username(size=20) }}
+            {% if form.username.errors %}
                 <ul>
-                    {% for error in form.Nom.errors %}
+                    {% for error in form.username.errors %}
                         <li>{{ error }}</li>
                     {% endfor %}
                 </ul>
@@ -30,37 +30,23 @@
 
         <!-- Champ Email -->
         <div>
-            {{ form.Email.label }}
-            {{ form.Email(size=20) }}
-            {% if form.Email.errors %}
+            {{ form.email.label }}
+            {{ form.email(size=20) }}
+            {% if form.email.errors %}
                 <ul>
-                    {% for error in form.Email.errors %}
+                    {% for error in form.email.errors %}
                         <li>{{ error }}</li>
                     {% endfor %}
                 </ul>
             {% endif %}
         </div>
-
-        <!-- Champ Prenom -->
-        <div>
-            {{ form.Prenom.label }}
-            {{ form.Prenom(size=20) }}
-            {% if form.Prenom.errors %}
-                <ul>
-                    {% for error in form.Prenom.errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        </div>
-
         <!-- Champ Mot de passe -->
         <div>
-            {{ form.MDP.label }}
-            {{ form.MDP(size=20) }}
-            {% if form.MDP.errors %}
+            {{ form.password.label }}
+            {{ form.password(size=20) }}
+            {% if form.password.errors %}
                 <ul>
-                    {% for error in form.MDP.errors %}
+                    {% for error in form.password.errors %}
                         <li>{{ error }}</li>
                     {% endfor %}
                 </ul>
