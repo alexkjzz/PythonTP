@@ -79,6 +79,7 @@ def dashboard():
 
 
 # Fonction pour récupérer les films depuis SWAPI
+@app.route('/fetch_star_wars_films')
 def fetch_star_wars_films():
     url = "https://swapi.dev/api/films/"
     try:
@@ -98,24 +99,31 @@ def fetch_star_wars_films():
             }
             films.append(film_info)
 
-        return films
+        return render_template('films.html', films=films)
 
     except requests.exceptions.RequestException as e:
         print(f"Error fetching films from SWAPI: {str(e)}")
-        return []
+        films = []  # En cas d'erreur, retourne une liste vide de films
+        return render_template('films.html', films=films)
 
 
 @app.route('/add_favorite', methods=['POST'])
 @login_required
 def add_favorite():
     film_title = request.form['film_title']
-    episode_id = request.form['episode_id']
+    episode_id = int(request.form['episode_id'])
 
-    favori = Favori(user_id=current_user.id, film_title=film_title, episode_id=episode_id)
-    db.session.add(favori)
-    db.session.commit()
+    # Vérifier si ce film est déjà un favori de l'utilisateur
+    existing_favorite = Favori.query.filter_by(user_id=current_user.user_id, film_title=film_title).first()
+    if existing_favorite:
+        flash(f'{film_title} is already in your favorites!', 'warning')
+    else:
+        # Créer un nouvel enregistrement Favori
+        new_favorite = Favori(user_id=current_user.user_id, film_title=film_title, episode_id=episode_id)
+        db.session.add(new_favorite)
+        db.session.commit()
+        flash(f'{film_title} added to favorites!', 'success')
 
-    flash(f'{film_title} added to favorites!', 'success')
     return redirect(url_for('dashboard'))
 
 
