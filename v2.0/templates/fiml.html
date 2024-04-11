@@ -1,0 +1,28 @@
+<!-- films.html -->
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Wars Films</title>
+</head>
+<body>
+    <h1>List of Star Wars Films</h1>
+    <ul>
+        {% for film in films %}
+        <li>
+            <strong>Title:</strong> {{ film.title }}<br>
+            <strong>Episode ID:</strong> {{ film.episode_id }}<br>
+            <strong>Director:</strong> {{ film.director }}<br>
+            <strong>Release Date:</strong> {{ film.release_date }}<br>
+            <form action="{{ url_for('add_favorite') }}" method="post">
+                <input type="hidden" name="film_title" value="{{ film.title }}">
+                <input type="hidden" name="episode_id" value="{{ film.episode_id }}">
+                <button type="submit">Add to Favorites</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

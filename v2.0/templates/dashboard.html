@@ -16,6 +16,7 @@
     </ul>
 
     <h2>Explore Films</h2>
+    <a href="{{ url_for('fetch_films') }}">View Star Wars Films</a>
     <ul>
         {% for film in films %}
             <li>{{ film.title }} (Episode {{ film.episode_id }}) 
