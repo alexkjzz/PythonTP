@@ -96,7 +96,15 @@
             </li>
         {% endfor %}
     </ul>
-
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li style="color: green;">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+{   % endwith %}
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const body = document.querySelector("body");
