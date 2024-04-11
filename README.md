@@ -165,4 +165,7 @@ pip install Flask-WTF
 ```bash
 pip install requests
 ```
+```bash
+pip install email_validator
+```
 3. Lancer le fichier app.py
