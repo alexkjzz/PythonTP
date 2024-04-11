@@ -2,82 +2,179 @@
 <html lang="fr">
 <head>
     <title>Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #ffe81f;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        form {
+            background-color: #0b1622;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        div {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #ffe81f;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ffe81f;
+            border-radius: 3px;
+            box-sizing: border-box;
+            background-color: #0b1622;
+            color: #ffe81f;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            color: red;
+        }
+
+        button[type="submit"] {
+            background-color: #ffe81f;
+            color: #000;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #f7d116;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #ffe81f;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        }
+    </style>
 </head>
 <body>
-    <h1>Register</h1>
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-                <div>{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-    <form method="post">
-        {{ form.hidden_tag() }}
+    <div>
+        <h1>Register</h1>
+        <form method="post">
+            <!-- Your form content here -->
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div>{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            {{ form.hidden_tag() }}
 
-        <!-- Champ Nom -->
-        <div>
-            {{ form.username.label }}
-            {{ form.username(size=20) }}
-            {% if form.username.errors %}
-                <ul>
-                    {% for error in form.username.errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        </div>
-        <div>
-            {{ form.firstname.label }}
-            {{ form.firstname(size=20) }}
-            {% if form.firstname.errors %}
-                <ul>
-                    {% for error in form.firstname.errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        </div>
-        <!-- Champ Email -->
-        <div>
-            {{ form.email.label }}
-            {{ form.email(size=20) }}
-            {% if form.email.errors %}
-                <ul>
-                    {% for error in form.email.errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        </div>
-        <!-- Champ Mot de passe -->
-        <div>
-            {{ form.password.label }}
-            {{ form.password(size=20) }}
-            {% if form.password.errors %}
-                <ul>
-                    {% for error in form.password.errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        </div>
+            <!-- Champ Nom -->
+            <div>
+                {{ form.username.label }}
+                {{ form.username(size=20) }}
+                {% if form.username.errors %}
+                    <ul>
+                        {% for error in form.username.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <!-- Champ Prénom -->
+            <div>
+                {{ form.firstname.label }}
+                {{ form.firstname(size=20) }}
+                {% if form.firstname.errors %}
+                    <ul>
+                        {% for error in form.firstname.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <!-- Champ Email -->
+            <div>
+                {{ form.email.label }}
+                {{ form.email(size=20) }}
+                {% if form.email.errors %}
+                    <ul>
+                        {% for error in form.email.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <!-- Champ Mot de passe -->
+            <div>
+                {{ form.password.label }}
+                {{ form.password(size=20) }}
+                {% if form.password.errors %}
+                    <ul>
+                        {% for error in form.password.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
 
-        <!-- Champ Confirmation du mot de passe -->
-        <div>
-            {{ form.confirm_password.label }}
-            {{ form.confirm_password(size=20) }}
-            {% if form.confirm_password.errors %}
-                <ul>
-                    {% for error in form.confirm_password.errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        </div>
+            <!-- Champ Confirmation du mot de passe -->
+            <div>
+                {{ form.confirm_password.label }}
+                {{ form.confirm_password(size=20) }}
+                {% if form.confirm_password.errors %}
+                    <ul>
+                        {% for error in form.confirm_password.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
 
-        <!-- Bouton de soumission -->
-        {{ form.submit() }}
-    </form>
+            <!-- Bouton de soumission -->
+            {{ form.submit() }}
+        </form>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const body = document.querySelector("body");
+            for (let i = 0; i < 2000; i++) {
+                const star = document.createElement("div");
+                star.className = "star";
+                star.style.top = `${Math.random() * 100}vh`;
+                star.style.left = `${Math.random() * 100}vw`;
+                body.appendChild(star);
+            }
+        });
+    </script>
 </body>
 </html>
