@@ -63,7 +63,9 @@
         button[type="submit"]:hover {
             background-color: #f7d116;
         }
-
+        li{
+            padding-top: 10px;
+        }
         .star {
             position: absolute;
             width: 2px;
@@ -103,8 +105,9 @@
                     <li style="color: green;">{{ message }}</li>
                 {% endfor %}
             </ul>
+            <meta http-equiv="refresh" content="10;url={{ request.path }}">
         {% endif %}
-{   % endwith %}
+    {% endwith %}
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const body = document.querySelector("body");
