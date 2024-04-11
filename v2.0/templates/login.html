@@ -17,6 +17,11 @@
             overflow: hidden;
         }
 
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
         form {
             background-color: #0b1622;
             padding: 20px;
@@ -25,15 +30,6 @@
             width: 300px;
             position: relative;
             z-index: 1;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 20px; /* Ajout de marge en bas */
-        }
-
-        div {
-            margin-bottom: 10px;
         }
 
         label {
@@ -46,20 +42,14 @@
         input[type="text"],
         input[type="email"],
         input[type="password"] {
-            width: 100%;
+            width: calc(100% - 22px); /* Subtract padding and border width */
             padding: 10px;
             border: 1px solid #ffe81f;
             border-radius: 3px;
             box-sizing: border-box;
             background-color: #0b1622;
             color: #ffe81f;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            color: red;
+            margin-bottom: 10px;
         }
 
         button[type="submit"] {
@@ -69,7 +59,9 @@
             border: none;
             border-radius: 3px;
             cursor: pointer;
-            width: 100%;
+            width: calc(100% - 22px); /* Subtract padding and border width */
+            display: block;
+            margin-top: 10px;
         }
 
         button[type="submit"]:hover {
@@ -84,9 +76,12 @@
             clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
         }
     </style>
+
 </head>
 <body>
-    <h1>Login</h1> <!-- Titre déplacé ici -->
+    
+    <div id="stars"></div>
+
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
@@ -95,25 +90,30 @@
         {% endif %}
     {% endwith %}
     <form method="post">
+
+        <h1>Login</h1>
+        
         {{ form.hidden_tag() }}
-        {{ form.username.label }} {{ form.username(size=20) }}<br>
-        {{ form.email.label }} {{ form.email(size=20) }}<br>
-        {{ form.password.label }} {{ form.password(size=20) }}<br>
+        <label for="username">{{ form.username.label }}</label>
+        {{ form.username(size=20) }}
+        <label for="email">{{ form.email.label }}</label>
+        {{ form.email(size=20) }}
+        <label for="password">{{ form.password.label }}</label>
+        {{ form.password(size=20) }}
         {{ form.submit() }}
     </form>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const body = document.querySelector("body");
+            const starsContainer = document.getElementById("stars");
             for (let i = 0; i < 2000; i++) {
                 const star = document.createElement("div");
                 star.className = "star";
                 star.style.top = `${Math.random() * 100}vh`;
                 star.style.left = `${Math.random() * 100}vw`;
-                body.appendChild(star);
+                starsContainer.appendChild(star);
             }
         });
     </script>
-    
 </body>
-</html> 
+</html>
