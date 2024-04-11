@@ -5,27 +5,27 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from db import db
 
 class User(db.Model, UserMixin):
-    __tablename__ = 'Utilisateurs'
+    __tablename__ = 'user'
 
-    ID_utilisateur = db.Column(Integer, primary_key=True)
-    Nom = db.Column(String(50), nullable=False)
-    Prenom = db.Column(String(50), nullable=False)
-    Email = db.Column(String(100), unique=True, nullable=False)
-    MDP = db.Column(String(100), nullable=False)
-    ID_role = db.Column(Integer, nullable=False)
+    user_id = db.Column(Integer, primary_key=True)
+    username = db.Column(String(50), nullable=False)
+    firstname = db.Column(String(50), nullable=False)
+    email = db.Column(String(100), unique=True, nullable=False)
+    password = db.Column(String(100), nullable=False)
+    role_id = db.Column(Integer, nullable=False)
 
-    def __init__(self, Nom, Prenom, Email, MDP, ID_role=0):
-        self.Nom = Nom
-        self.Prenom = Prenom
-        self.Email = Email
-        self.MDP = generate_password_hash(MDP)
-        self.ID_role = ID_role
+    def __init__(self, username, firstname, email, password, role_id=0):
+        self.username = username
+        self.firstname = firstname
+        self.email = email
+        self.password = generate_password_hash(password)
+        self.role_id = role_id
 
-    def set_password(self, MDP):
-        self.MDP = generate_password_hash(MDP)
+    def set_password(self, password):
+        self.password = generate_password_hash(password)
 
-    def check_password(self, MDP):
-        return check_password_hash(self.MDP, MDP)
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
 
     def get_id(self):
-        return str(self.ID_utilisateur)
+        return str(self.user_id)
