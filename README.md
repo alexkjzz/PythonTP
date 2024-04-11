@@ -162,5 +162,7 @@ pip install Flask-SQLAlchemy
 ```bash
 pip install Flask-WTF
 ```
-
+```bash
+pip install requests
+```
 3. Lancer le fichier app.py
