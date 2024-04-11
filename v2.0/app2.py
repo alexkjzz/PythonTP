@@ -113,12 +113,10 @@ def add_favorite():
     film_title = request.form['film_title']
     episode_id = int(request.form['episode_id'])
 
-    # Vérifier si ce film est déjà un favori de l'utilisateur
-    existing_favorite = Favori.query.filter_by(user_id=current_user.user_id, film_title=film_title).first()
+    existing_favorite = Favori.query.filter_by(user_id=current_user.user_id, film_title=film_title, episode_id=episode_id).first()
     if existing_favorite:
         flash(f'{film_title} is already in your favorites!', 'warning')
     else:
-        # Créer un nouvel enregistrement Favori
         new_favorite = Favori(user_id=current_user.user_id, film_title=film_title, episode_id=episode_id)
         db.session.add(new_favorite)
         db.session.commit()

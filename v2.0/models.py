@@ -3,6 +3,7 @@ from flask_login import UserMixin
 from sqlalchemy import Column, Integer, String
 from werkzeug.security import generate_password_hash, check_password_hash
 from db import db
+from sqlalchemy.orm import relationship
 
 class User(db.Model, UserMixin):
     __tablename__ = 'user'
@@ -13,6 +14,8 @@ class User(db.Model, UserMixin):
     email = db.Column(String(100), unique=True, nullable=False)
     password = db.Column(String(100), nullable=False)
     role = db.Column(Integer, nullable=False)
+    
+    favoris = relationship("Favori", back_populates="user")
 
     def __init__(self, username,email,firstname, password, role=0):
         self.username = username
@@ -31,12 +34,23 @@ class User(db.Model, UserMixin):
         return str(self.user_id)
 
 
+from sqlalchemy.orm import relationship
+from sqlalchemy.sql.schema import UniqueConstraint
+
 class Favori(db.Model):
     __tablename__ = 'favoris'
 
-    user_id = db.Column(Integer, db.ForeignKey('user.user_id'), primary_key=True)  # Clé étrangère vers user_id
+    user_id = db.Column(Integer, db.ForeignKey('user.user_id'), primary_key=True)
     film_title = db.Column(String(255), primary_key=True)
     episode_id = db.Column(Integer, nullable=False)
 
+    # Définir la relation avec User
+    user = relationship("User", back_populates="favoris")
+
+    # Contrainte unique pour empêcher la même combinaison user_id et film_title
+    __table_args__ = (
+    db.UniqueConstraint('user_id', 'film_title', name='user_film_unique_constraint'),
+    )   
+
     def __repr__(self):
-        return f"<Favori {self.film_title}>"
+        return f"<Favori user_id={self.user_id}, film_title={self.film_title}, episode_id={self.episode_id}>"
