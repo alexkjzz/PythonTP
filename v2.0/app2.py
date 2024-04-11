@@ -5,7 +5,7 @@ from flask_login import LoginManager, login_user, logout_user, login_required, U
 from db import db, init_app
 from models import User
 from forms import RegistrationForm, LoginForm
-import requests
+
 app = Flask(__name__)
 # Configuration secrète
 app.config['SECRET_KEY'] = '08c12c9a83b5bc7e0ecf54b3d28dc1fc'
@@ -33,8 +33,8 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         try:
-            new_user = User(Nom=form.Nom.data, Email=form.Email.data, Prenom=form.Prenom.data, MDP=form.MDP.data, ID_role=0)
-            new_user.set_password(form.MDP.data)
+            new_user = User(username=form.username.data, email=form.email.data, password=form.password.data, role_id=0)
+            new_user.set_password(form.password.data)
             db.session.add(new_user)
             db.session.commit()
             flash('Account created successfully! Please log in.', 'success')
@@ -53,8 +53,8 @@ def register():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(Nom=form.Nom.data).first()
-        if user and user.check_password(form.MDP.data):
+        user = User.query.filter_by(username=form.username.data).first()
+        if user and user.check_password(form.password.data):
             login_user(user)
             next_page = request.args.get('next')
             return redirect(next_page or url_for('dashboard'))

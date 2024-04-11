@@ -9,17 +9,15 @@ class User(db.Model, UserMixin):
 
     user_id = db.Column(Integer, primary_key=True)
     username = db.Column(String(50), nullable=False)
-    firstname = db.Column(String(50), nullable=False)
     email = db.Column(String(100), unique=True, nullable=False)
     password = db.Column(String(100), nullable=False)
-    role_id = db.Column(Integer, nullable=False)
+    role = db.Column(Integer, nullable=False)
 
-    def __init__(self, username, firstname, email, password, role_id=0):
+    def __init__(self, username,email, password, role=0):
         self.username = username
-        self.firstname = firstname
         self.email = email
         self.password = generate_password_hash(password)
-        self.role_id = role_id
+        self.role = role
 
     def set_password(self, password):
         self.password = generate_password_hash(password)
