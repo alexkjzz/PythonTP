@@ -27,7 +27,17 @@
                 </ul>
             {% endif %}
         </div>
-
+        <div>
+            {{ form.firstname.label }}
+            {{ form.firstname(size=20) }}
+            {% if form.firstname.errors %}
+                <ul>
+                    {% for error in form.firstname.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
         <!-- Champ Email -->
         <div>
             {{ form.email.label }}
