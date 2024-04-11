@@ -48,7 +48,7 @@ def my_function():
 
 ### 4. Communication
 - Discord
-- [Trello](https://trello.com/)
+- [Clickup](https://sharing.clickup.com/9015532609/l/h/8cnw721-375/51e4cf6ce2b9993)
 - [WikiGithub](https://github.com/alexkjzz/PythonTP)
 
 
