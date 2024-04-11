@@ -5,51 +5,92 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
+            background-color: #000;
+            color: #ffe81f;
             margin: 0;
             padding: 0;
             text-align: center;
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
         }
 
         pre {
             font-size: 24px;
             margin-top: 50px;
+            color: #ffe81f;
         }
 
         a {
             text-decoration: none;
-            color: #333;
+            color: #ffe81f;
             font-size: 20px;
             padding: 10px 20px;
             margin: 20px;
-            border: 2px solid #333;
+            border: 2px solid #ffe81f;
             border-radius: 5px;
-            background-color: #fff;
+            background-color: #000;
             transition: background-color 0.3s, color 0.3s;
         }
 
         a:hover {
-            background-color: #333;
-            color: #fff;
+            background-color: #ffe81f;
+            color: #000;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #ffe81f;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        }
+
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @font-face {
+        font-family: 'StarWarsFont';
+        src: url('chemin_vers_la_police/starwars.ttf') format('truetype');
+        }
+
+        body {
+            font-family: 'StarWarsFont', Arial, sans-serif;
+            /* Autres styles */
+        }
+
+        h1 {
+            font-size: 100px; /* Taille de la police agrandie */
+            /* Autres styles */
         }
     </style>
 </head>
 <body>
-    <pre>
-         _______.___________.    ___      .______   ____    __    ____  ___       .______          _______.    
-        /       |           |   /   \     |   _  \   \   \  /  \  /   / /   \     |   _  \        /       |   
-       |   (----`---|  |----`  /  ^  \    |  |_)  |   \   \/    \/   / /  ^  \    |  |_)  |      |   (----`   
-        \   \       |  |      /  /_\  \   |      /     \            / /  /_\  \   |      /        \   \          
-    .----)   |      |  |     /  _____  \  |  |\  \----. \    /\    / /  _____  \  |  |\  \----.----)   |        
-    |_______/       |__|    /__/     \__\ | _| `._____|  \__/  \__/ /__/     \__\ | _| `._____|_______/          
-                                _______  __   __      .___  ___.      _______. 
-                               |   ____||  | |  |     |   \/   |     /       |
-                                |  |__   |  | |  |     |  \  /  |    |   (----` 
-                           |   __|  |  | |  |     |  |\/|  |     \   \
-                            |  |     |  | |  `----.|  |  |  | .----)   |
-                           |__|     |__| |_______||__|  |__| |_______/
-    </pre>
-    <a href="{{ url_for('register') }}">Register</a> |
-    <a href="{{ url_for('login') }}">Login</a>
+    <h1>Star Wars Films</h1>
+
+    <div class="links-container">
+        <a href="{{ url_for('register') }}">Register</a>
+        <a href="{{ url_for('login') }}">Login</a>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const body = document.querySelector("body");
+            for (let i = 0; i < 2000; i++) {
+                const star = document.createElement("div");
+                star.className = "star";
+                star.style.top = `${Math.random() * 100}vh`;
+                star.style.left = `${Math.random() * 100}vw`;
+                body.appendChild(star);
+            }
+        });
+    </script>
 </body>
 </html>
