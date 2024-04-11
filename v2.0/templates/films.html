@@ -1,11 +1,69 @@
-<!-- films.html -->
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Star Wars Films</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #ffe81f;
+            margin: 0;
+            padding: 20px;
+            position: relative;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        li {
+            margin-bottom: 20px;
+            width: calc(50% - 20px); /* Largeur de 50% moins la marge pour deux colonnes */
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ffe81f;
+            border-radius: 3px;
+        }
+
+        strong {
+            color: #f7d116;
+        }
+
+        button[type="submit"] {
+            background-color: #ffe81f;
+            color: #000;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #f7d116;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #ffe81f;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        }
+    </style>
 </head>
 <body>
     <h1>List of Star Wars Films</h1>
@@ -24,5 +82,18 @@
         </li>
         {% endfor %}
     </ul>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const body = document.querySelector("body");
+            for (let i = 0; i < 2000; i++) {
+                const star = document.createElement("div");
+                star.className = "star";
+                star.style.top = `${Math.random() * 100}vh`;
+                star.style.left = `${Math.random() * 100}vw`;
+                body.appendChild(star);
+            }
+        });
+    </script>
 </body>
 </html>
