@@ -64,9 +64,24 @@
         button[type="submit"]:hover {
             background-color: #f7d116;
         }
-        li{
-            padding-top: 10px;
+        ul {
+            list-style: none;
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
         }
+
+        li {
+            margin-bottom: 20px;
+            width: calc(50% - 20px); /* Largeur de 50% moins la marge pour deux colonnes */
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ffe81f;
+            border-radius: 3px;
+        }
+        
         .star {
             position: absolute;
             width: 2px;
