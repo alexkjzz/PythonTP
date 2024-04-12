@@ -21,14 +21,21 @@
             margin-bottom: 20px;
         }
 
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+        table {
+            width: 60%;
+            margin: 0 auto;
+            border-collapse: collapse;
         }
 
-        li {
-            margin-bottom: 10px;
+        th, td {
+            border: 1px solid #ffe81f;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #ffe81f;
+            color: #000;
         }
 
         a {
@@ -40,15 +47,14 @@
             border-radius: 3px;
             background-color: #000;
             transition: background-color 0.3s, color 0.3s;
+            display: inline-block;
+            margin-top: 20px;
+            text-align: center; /* Centrer le texte horizontalement */
         }
 
         a:hover {
             background-color: #ffe81f;
             color: #000;
-        }
-
-        form {
-            display: inline;
         }
 
         button[type="submit"] {
@@ -64,24 +70,7 @@
         button[type="submit"]:hover {
             background-color: #f7d116;
         }
-        ul {
-            list-style: none;
-            padding: 20px;
-            margin: 0;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
 
-        li {
-            margin-bottom: 20px;
-            width: calc(50% - 20px); /* Largeur de 50% moins la marge pour deux colonnes */
-            padding: 10px;
-            box-sizing: border-box;
-            border: 1px solid #ffe81f;
-            border-radius: 3px;
-        }
-        
         .star {
             position: absolute;
             width: 2px;
@@ -95,25 +84,35 @@
     <h1>Welcome, {{ current_user.username }}!</h1>
 
     <h2>Favorite Films</h2>
-    <ul>
-        {% for favori in current_user.favoris %}
-            <li>{{ favori.film_title }} (Episode {{ favori.episode_id }})</li>
-        {% endfor %}
-    </ul>
+    <table>
+        <thead>
+            <tr>
+                <th>Episode</th>
+                <th>Films</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for favori in current_user.favoris|sort(attribute='episode_id') %}
+            <tr>
+                <td>{{ favori.episode_id }}</td>
+                <td>{{ favori.film_title }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('remove_favorite') }}">
+                        <input type="hidden" name="film_title" value="{{ favori.film_title }}">
+                        <input type="hidden" name="episode_id" value="{{ favori.episode_id }}">
+                        <button type="submit">Remove</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
-    <h2>Explore Films</h2>
-    <a href="{{ url_for('fetch_star_wars_films') }}">View Star Wars Films</a>
-    <ul>
-        {% for film in films %}
-            <li>{{ film.title }} (Episode {{ film.episode_id }}) 
-                <form action="{{ url_for('add_favorite') }}" method="post">
-                    <input type="hidden" name="film_title" value="{{ film.title }}">
-                    <input type="hidden" name="episode_id" value="{{ film.episode_id }}">
-                    <button type="submit">Add to Favorites</button>
-                </form>
-            </li>
-        {% endfor %}
-    </ul>
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="{{ url_for('fetch_star_wars_films') }}">View Star Wars Films</a>
+    </div>
+
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             <ul>
@@ -124,6 +123,7 @@
             <meta http-equiv="refresh" content="10;url={{ request.path }}">
         {% endif %}
     {% endwith %}
+    
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const body = document.querySelector("body");
