@@ -115,14 +115,33 @@ def add_favorite():
 
     existing_favorite = Favori.query.filter_by(user_id=current_user.user_id, film_title=film_title, episode_id=episode_id).first()
     if existing_favorite:
-        flash(f'{film_title} is already in your favorites!', 'warning')
+        flash(f'{film_title} est déja dans les favoris', 'warning')
     else:
         new_favorite = Favori(user_id=current_user.user_id, film_title=film_title, episode_id=episode_id)
         db.session.add(new_favorite)
         db.session.commit()
-        flash(f'{film_title} added to favorites!', 'success')
+        flash(f'{film_title} ajouté dans les favoris', 'success')
 
     return redirect(url_for('dashboard'))
+
+
+@app.route('/remove_favorite', methods=['POST'])
+@login_required
+def remove_favorite():
+    film_title = request.form['film_title']
+    episode_id = int(request.form['episode_id'])
+    
+    favorite_to_remove = Favori.query.filter_by(user_id=current_user.user_id, film_title=film_title, episode_id=episode_id).first()    
+    if favorite_to_remove:
+        db.session.delete(favorite_to_remove)
+        db.session.commit()
+        flash(f'{film_title} a bien été supprimé des favoris','succes')
+    else:
+        flash(f'{film_title} pas trouvé dans les favoris','danger')
+        
+    return redirect(url_for('dashboard'))
+
+
 
 
 # Exécution de l'application
