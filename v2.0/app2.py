@@ -1,6 +1,6 @@
 # app.py
 
-from flask import Flask, render_template, redirect, url_for, flash, request
+from flask import Flask, render_template, redirect, url_for, flash, request , abort
 from flask_login import LoginManager, login_user, logout_user, login_required, UserMixin, current_user
 from db import db, init_app
 from models import User , Favori
@@ -73,7 +73,11 @@ def logout():
 @app.route('/dashboard')
 @login_required
 def dashboard():
+    if current_user.role == 1:
+        return redirect(url_for('statistique'))
+    
     return render_template('dashboard.html')
+
 
 
 
@@ -142,6 +146,19 @@ def remove_favorite():
     return redirect(url_for('dashboard'))
 
 
+@app.route('/statistique')
+@login_required
+def statistique():
+    if current_user.role != 1:
+        abort(403)
+    films = Favori.query.all()
+    film_counts = {}
+    for film in films:
+        if film.film_title in film_counts:
+            film_counts[film.film_title] +=1
+        else:
+            film_counts[film.film_title] = 1
+    return render_template('statistique.html', film_counts=film_counts)
 
 
 # Exécution de l'application

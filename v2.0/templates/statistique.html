@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics</title>
+</head>
+<body>
+    <h1>Film Statistics</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Film Title</th>
+                <th>Number of Favorites</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for film_title, count in film_counts.items() %}
+            <tr>
+                <td>{{ film_title }}</td>
+                <td>{{ count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
