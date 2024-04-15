@@ -1,6 +1,6 @@
 # app.py
 
-from flask import Flask, render_template, redirect, url_for, flash, request
+from flask import Flask, render_template, redirect, url_for, flash, request , abort
 from flask_login import LoginManager, login_user, logout_user, login_required, UserMixin, current_user
 from db import db, init_app
 from models import User , Favori
@@ -73,7 +73,11 @@ def logout():
 @app.route('/dashboard')
 @login_required
 def dashboard():
+    if current_user.role == 1:
+        return redirect(url_for('statistique'))
+    
     return render_template('dashboard.html')
+
 
 
 
@@ -113,18 +117,48 @@ def add_favorite():
     film_title = request.form['film_title']
     episode_id = int(request.form['episode_id'])
 
-    # Vérifier si ce film est déjà un favori de l'utilisateur
-    existing_favorite = Favori.query.filter_by(user_id=current_user.user_id, film_title=film_title).first()
+    existing_favorite = Favori.query.filter_by(user_id=current_user.user_id, film_title=film_title, episode_id=episode_id).first()
     if existing_favorite:
-        flash(f'{film_title} is already in your favorites!', 'warning')
+        flash(f'{film_title} est déja dans les favoris', 'warning')
     else:
-        # Créer un nouvel enregistrement Favori
         new_favorite = Favori(user_id=current_user.user_id, film_title=film_title, episode_id=episode_id)
         db.session.add(new_favorite)
         db.session.commit()
-        flash(f'{film_title} added to favorites!', 'success')
+        flash(f'{film_title} ajouté dans les favoris', 'success')
 
     return redirect(url_for('dashboard'))
+
+
+@app.route('/remove_favorite', methods=['POST'])
+@login_required
+def remove_favorite():
+    film_title = request.form['film_title']
+    episode_id = int(request.form['episode_id'])
+    
+    favorite_to_remove = Favori.query.filter_by(user_id=current_user.user_id, film_title=film_title, episode_id=episode_id).first()    
+    if favorite_to_remove:
+        db.session.delete(favorite_to_remove)
+        db.session.commit()
+        flash(f'{film_title} a bien été supprimé des favoris','succes')
+    else:
+        flash(f'{film_title} pas trouvé dans les favoris','danger')
+        
+    return redirect(url_for('dashboard'))
+
+
+@app.route('/statistique')
+@login_required
+def statistique():
+    if current_user.role != 1:
+        abort(403)
+    films = Favori.query.all()
+    film_counts = {}
+    for film in films:
+        if film.film_title in film_counts:
+            film_counts[film.film_title] +=1
+        else:
+            film_counts[film.film_title] = 1
+    return render_template('statistique.html', film_counts=film_counts)
 
 
 # Exécution de l'application
