@@ -35,7 +35,6 @@ X.0.0 Nouveautée majeur
 0.0.X Nouveautée minime
 ```
 
-### 3. Documentation
 ```py
 # Docstring 
 def my_function():
