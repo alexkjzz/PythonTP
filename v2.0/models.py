@@ -41,7 +41,7 @@ class Favori(db.Model):
     __tablename__ = 'favoris'
 
     user_id = db.Column(Integer, db.ForeignKey('user.user_id'), primary_key=True)
-    film_title = db.Column(String(255), primary_key=True)
+    film_title = db.Column(String(255))
     episode_id = db.Column(Integer, nullable=False)
 
     # Définir la relation avec User
