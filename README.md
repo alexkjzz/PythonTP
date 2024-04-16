@@ -62,7 +62,37 @@ def my_function():
 
 ![Texte alternatif](/IMAGES/POC.png "Titre de l'image")
 
+### MLD
+
+````mermaid
+classDiagram
+  
+    class Utilisateur{
+        -Id_user
+        -user_name
+        -user_surname
+        -password
+        -user_email
+        -rôle
+
+    }
+
+
+    class Favoris {
+        -Id_user
+        -Titre_Film
+        -Id_film
+       
+    }
+
+   
+
+    Utilisateur --> Favoris : Ajouter
+
+````
+
 ### Diagramme de classes
+
 ```mermaid
 classDiagram
   
