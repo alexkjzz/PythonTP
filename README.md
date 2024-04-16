@@ -54,7 +54,7 @@ def my_function():
 
 ### 5. Stratégie de développement
 - Peer programming
-- Management avec Trello
+- Management avec ClickUp
 - Revue de code
 
 
@@ -168,4 +168,4 @@ pip install requests
 ```bash
 pip install email_validator
 ```
-3. Lancer le fichier app.py
+3. Lancer le fichier app2.py
