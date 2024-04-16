@@ -76,7 +76,12 @@ def dashboard():
     if current_user.role == 1:
         return redirect(url_for('statistique'))
     
-    return render_template('dashboard.html')
+    # Récupérer les favoris de l'utilisateur et les trier par episode_id
+    user_favorites = Favori.query.filter_by(user_id=current_user.user_id).order_by(Favori.episode_id).all()
+    
+    return render_template('dashboard.html', user_favorites=user_favorites)
+
+
 
 
 

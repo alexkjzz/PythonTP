@@ -93,7 +93,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for favori in current_user.favoris|sort(attribute='episode_id') %}
+            {% for favori in user_favorites %}
             <tr>
                 <td>{{ favori.episode_id }}</td>
                 <td>{{ favori.film_title }}</td>
