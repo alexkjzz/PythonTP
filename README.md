@@ -48,7 +48,7 @@ X.0.0 Nouveautée majeur
 - Revue de code
 
 
-### Choix des librairies et veilles technologiques avec POC 
+### POC 
 
 ![Texte alternatif](/IMAGES/POC.png "Titre de l'image")
 
