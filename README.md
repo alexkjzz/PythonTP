@@ -35,15 +35,6 @@ X.0.0 Nouveautée majeur
 0.0.X Nouveautée minime
 ```
 
-```py
-# Docstring 
-def my_function():
-    """_summary_
-
-    Args:
-        x (int, optional): _description_. Defaults to 0.
-    """
-```
 
 ### 4. Communication
 - Discord
